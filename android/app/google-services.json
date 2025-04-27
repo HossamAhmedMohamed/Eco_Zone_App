@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "111585473135",
+    "project_id": "eco-zone-c4a29",
+    "storage_bucket": "eco-zone-c4a29.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111585473135:android:7feea01ec91c8209c4139a",
+        "android_client_info": {
+          "package_name": "com.example.inventory_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4_qaBvS1vS8gM2qZajlYkbfbQZknDgBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
