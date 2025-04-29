@@ -6,6 +6,10 @@ class Assets {
   /// assets/images/biological_system.png
   static const String imagesBiologicalSystem = "assets/images/biological_system.png";
 
+  /// Assets for imagesBot
+  /// assets/images/bot.png
+  static const String imagesBot = "assets/images/bot.png";
+
   /// Assets for imagesDevices
   /// assets/images/devices.png
   static const String imagesDevices = "assets/images/devices.png";
@@ -17,6 +21,10 @@ class Assets {
   /// Assets for imagesEnvironment
   /// assets/images/environment.png
   static const String imagesEnvironment = "assets/images/environment.png";
+
+  /// Assets for imagesGpt
+  /// assets/images/gpt.png
+  static const String imagesGpt = "assets/images/gpt.png";
 
   /// Assets for imagesQualityWater
   /// assets/images/quality_water.png

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -75,7 +74,7 @@ class _WaterQualitySensorsPageState extends State<WaterQualitySensorsPage> {
         double minPH = double.parse(idealRange[0]);
         double maxPH = double.parse(idealRange[1]);
         double randomPH = random.nextDouble() * (maxPH - minPH) + minPH;
-        return '${(randomPH + random.nextDouble() * 0.3 - 0.15).toStringAsFixed(1)}';
+        return (randomPH + random.nextDouble() * 0.3 - 0.15).toStringAsFixed(1);
       case 'Water Level':
         idealRange = idealValue.split(' - ');
         double minLevel = double.parse(idealRange[0].replaceAll('%', ''));
@@ -91,13 +90,11 @@ class _WaterQualitySensorsPageState extends State<WaterQualitySensorsPage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(seconds: 15), (timer) {
-      setState(() {
-        sensorData = sensorData.map((key, value) {
-          return MapEntry(key, {
-            'value': _generateRandomValue(key, value['ideal']!),
-            'ideal': value['ideal']!,
-          });
+    setState(() {
+      sensorData = sensorData.map((key, value) {
+        return MapEntry(key, {
+          'value': _generateRandomValue(key, value['ideal']!),
+          'ideal': value['ideal']!,
         });
       });
     });

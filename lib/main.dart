@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:untitled/core/cache/cache_helper.dart';
 import 'package:untitled/firebase_options.dart';
 import 'package:untitled/routing/router_generator.dart';
@@ -9,7 +10,8 @@ import 'package:untitled/routing/router_generator.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
+  await dotenv.load(fileName: ".env");
+  // await dotenv.load();
   CacheHelper().init();
   runApp(MyApp());
 }
@@ -28,8 +30,7 @@ class MyApp extends StatelessWidget {
           title: 'ECO ZONE',
           theme: ThemeData(primarySwatch: Colors.blue),
         );
-      }
+      },
     );
   }
 }
-
