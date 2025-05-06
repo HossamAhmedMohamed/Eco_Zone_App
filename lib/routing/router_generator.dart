@@ -5,10 +5,11 @@ import 'package:untitled/core/cache/cache_helper.dart';
 import 'package:untitled/features/eco_zone/data/data_source/remote_data_source.dart';
 import 'package:untitled/features/eco_zone/data/repo/repo.dart';
 import 'package:untitled/features/eco_zone/presentation/cubit/logics_cubit.dart';
-import 'package:untitled/features/eco_zone/presentation/screens/bilogical_system_page.dart';
+import 'package:untitled/features/eco_zone/presentation/screens/bot_screen.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/dash_board.dart';
-import 'package:untitled/features/eco_zone/presentation/screens/devices_page.dart';
-import 'package:untitled/features/eco_zone/presentation/screens/environment_page.dart';
+import 'package:untitled/features/eco_zone/presentation/screens/device_page.dart';
+import 'package:untitled/features/eco_zone/presentation/screens/environment_sensor.dart';
+import 'package:untitled/features/eco_zone/presentation/screens/fish_and_planet_status.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/login_screen.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/sign_up_screen.dart';
 
@@ -20,6 +21,7 @@ class RouterGenerator {
   static final String? isAuthenticated = CacheHelper().getData(key: 'userId');
   static GoRouter mainRouting = GoRouter(
     initialLocation: isAuthenticated != null ? AppRouter.dashboard : AppRouter.login,
+    // initialLocation: AppRouter.chat,
     errorBuilder: (context, state) {
       return const Scaffold(body: Center(child: Text('Error')));
     },
@@ -53,7 +55,7 @@ class RouterGenerator {
       GoRoute(
         name: AppRouter.devices,
         path: AppRouter.devices,
-        builder: (context, state) => const DevicesPage(),
+        builder: (context, state) => const DevicePage(),
       ),
 
       GoRoute(
@@ -65,19 +67,25 @@ class RouterGenerator {
       GoRoute(
         name: AppRouter.environment,
         path: AppRouter.environment,
-        builder: (context, state) => const EnvironmentPage(),
+        builder: (context, state) => const EnvironmentSensorsPage(),
       ),
 
       GoRoute(
         name: AppRouter.biologicalSystem,
         path: AppRouter.biologicalSystem,
-        builder: (context, state) => const BiologicalSystemPage(),
+        builder: (context, state) => const FishAndPlantsStatus(),
       ),
 
       GoRoute(
         name: AppRouter.dashboard,
         path: AppRouter.dashboard,
         builder: (context, state) => DashboardPage(),
+      ),
+
+      GoRoute(
+        name: AppRouter.chat,
+        path: AppRouter.chat,
+        builder: (context, state) => BotScreen(),
       ),
     ],
   );

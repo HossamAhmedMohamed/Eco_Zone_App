@@ -6,4 +6,5 @@ class  AppRouter {
   static const String environment = '/environment';
   static const String biologicalSystem = '/biological-system';
   static const String devices = '/devices';
+  static const String chat = '/chat';
 }
