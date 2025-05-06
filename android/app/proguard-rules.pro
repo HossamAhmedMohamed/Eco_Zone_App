@@ -1,22 +1,47 @@
-# Keep Firebase classes
--keep class com.google.firebase.** { *; }
--keep class com.google.firebase.messaging.** { *; }
--keep class com.google.firebase.auth.** { *; }
--keep class com.google.firebase.database.** { *; }
--keep class com.google.firebase.firestore.** { *; }
+# Keep classes for Dio & OkHttp
+-keep class okhttp3.** { *; }
+-dontwarn okhttp3.**
 
-# Keep Dio classes
--keep class com.dio.** { *; }
+# Keep classes for Gson (لو بتستخدمه)
+-keep class com.google.gson.** { *; }
+-dontwarn com.google.gson.**
 
-# Keep Get_it classes
--keep class io.flutter.** { *; }
-
-# Keep Easy Localization files (if needed)
--keep class io.flutter.plugins.easy_localization.** { *; }
-
-# Keep other common libraries
--keep class com.squareup.okhttp3.** { *; }
+# لو بتستخدم retrofit
 -keep class retrofit2.** { *; }
+-dontwarn retrofit2.**
 
-# Keep Play Core classes
--keep class com.google.android.play.core.** { *; }
+# لو بتستخدم Firebase
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+
+# Firebase Core
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+
+# Firebase Analytics
+-keep class com.google.firebase.analytics.** { *; }
+
+# Firebase Messaging (لو بتستخدم الإشعارات)
+-keep class com.google.firebase.messaging.** { *; }
+-dontwarn com.google.firebase.messaging.**
+
+# Firebase Auth (لو بتستخدم تسجيل الدخول)
+-keep class com.google.firebase.auth.** { *; }
+-dontwarn com.google.firebase.auth.**
+
+# Firebase Firestore
+-keep class com.google.firebase.firestore.** { *; }
+-dontwarn com.google.firebase.firestore.**
+
+# Firebase Realtime Database
+-keep class com.google.firebase.database.** { *; }
+-dontwarn com.google.firebase.database.**
+
+-keep class android.content.SharedPreferences { *; }
+-keep class android.preference.PreferenceManager { *; }
+
+-keep class com.google.android.gms.maps.** { *; }
+-keep interface com.google.android.gms.maps.** { *; }
+-dontwarn com.google.android.gms.maps.**
+
+

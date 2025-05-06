@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/core/cache/cache_helper.dart';
 import 'package:untitled/core/utils/app_style.dart';
 import 'package:untitled/features/eco_zone/data/models/message_model.dart';
@@ -96,39 +97,39 @@ class _BotScreenState extends State<BotScreen> {
     }
   }
 
-  Future<void> saveMessagesToLocal() async {
-    final List<String> encodedMessages =
-        _messages.map(
-          (msg) => jsonEncode({
-            'isUser': msg.isUser,
-            'message': msg.message,
-            'date': msg.date.toIso8601String(),
-          }),
-        ).toList();
-    await CacheHelper().saveData(key: 'chatMessages', value: encodedMessages);
-  }
+Future<void> saveMessagesToLocal() async {
+  final prefs = await SharedPreferences.getInstance();
+  final List<String> encodedMessages = _messages.map(
+    (msg) => jsonEncode({
+      'isUser': msg.isUser,
+      'message': msg.message,
+      'date': msg.date.toIso8601String(),
+    }),
+  ).toList();
+  
+  await prefs.setStringList('chatMessages', encodedMessages);
+}
 
-  Future<void> loadMessagesFromLocal() async {
-    final List<String>? encodedMessages = CacheHelper().getData(
-      key: 'chatMessages',
-    );
-
-    if (encodedMessages != null && encodedMessages.isNotEmpty) {
-      setState(() {
-        _messages.clear();
-        _messages.addAll(
-          encodedMessages.map((str) {
-            final json = jsonDecode(str);
-            return Message(
-              isUser: json['isUser'],
-              message: json['message'],
-              date: DateTime.parse(json['date']),
-            );
-          }).toList(),
-        );
-      });
-    }
+Future<void> loadMessagesFromLocal() async {
+  final prefs = await SharedPreferences.getInstance();
+  final List<String>? encodedMessages = prefs.getStringList('chatMessages');
+  
+  if (encodedMessages != null && encodedMessages.isNotEmpty) {
+    setState(() {
+      _messages.clear();
+      _messages.addAll(
+        encodedMessages.map((str) {
+          final json = jsonDecode(str);
+          return Message(
+            isUser: json['isUser'],
+            message: json['message'],
+            date: DateTime.parse(json['date']),
+          );
+        }).toList(),
+      );
+    });
   }
+}
 
   void _clearChat() {
     showDialog(
