@@ -14,6 +14,7 @@ Future<void> main() async {
   // await dotenv.load();
   CacheHelper().init();
   runApp(MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {
