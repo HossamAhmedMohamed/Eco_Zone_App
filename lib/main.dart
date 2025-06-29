@@ -12,9 +12,10 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await dotenv.load(fileName: ".env");
   // await dotenv.load();
-  CacheHelper().init();
+  await CacheHelper().init();
   runApp(MyApp());
   
+
 }
 
 class MyApp extends StatelessWidget {
