@@ -9,7 +9,7 @@ import 'package:untitled/features/eco_zone/presentation/screens/bot_screen.dart'
 import 'package:untitled/features/eco_zone/presentation/screens/dash_board.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/device_page.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/environment_sensor.dart';
-import 'package:untitled/features/eco_zone/presentation/screens/fish_and_planet_status.dart';
+import 'package:untitled/features/eco_zone/presentation/screens/live_stream_screen.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/login_screen.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/sign_up_screen.dart';
 
@@ -73,7 +73,7 @@ class RouterGenerator {
       GoRoute(
         name: AppRouter.biologicalSystem,
         path: AppRouter.biologicalSystem,
-        builder: (context, state) => const FishAndPlantsStatus(),
+        builder: (context, state) => const LiveStreamScreen(),
       ),
 
       GoRoute(
