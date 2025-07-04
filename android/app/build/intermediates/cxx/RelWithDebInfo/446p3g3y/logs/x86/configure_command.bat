@@ -1,0 +1,20 @@
+@echo off
+"C:\\Users\\hossa\\AppData\\Local\\Android\\sdk\\cmake\\3.22.1\\bin\\cmake.exe" ^
+  "-HC:\\src\\flutter\\packages\\flutter_tools\\gradle\\src\\main\\groovy" ^
+  "-DCMAKE_SYSTEM_NAME=Android" ^
+  "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON" ^
+  "-DCMAKE_SYSTEM_VERSION=23" ^
+  "-DANDROID_PLATFORM=android-23" ^
+  "-DANDROID_ABI=x86" ^
+  "-DCMAKE_ANDROID_ARCH_ABI=x86" ^
+  "-DANDROID_NDK=C:\\Users\\hossa\\AppData\\Local\\Android\\sdk\\ndk\\26.3.11579264" ^
+  "-DCMAKE_ANDROID_NDK=C:\\Users\\hossa\\AppData\\Local\\Android\\sdk\\ndk\\26.3.11579264" ^
+  "-DCMAKE_TOOLCHAIN_FILE=C:\\Users\\hossa\\AppData\\Local\\Android\\sdk\\ndk\\26.3.11579264\\build\\cmake\\android.toolchain.cmake" ^
+  "-DCMAKE_MAKE_PROGRAM=C:\\Users\\hossa\\AppData\\Local\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe" ^
+  "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=D:\\ecoooo\\eco-zone-app-main\\android\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\446p3g3y\\obj\\x86" ^
+  "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=D:\\ecoooo\\eco-zone-app-main\\android\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\446p3g3y\\obj\\x86" ^
+  "-DCMAKE_BUILD_TYPE=RelWithDebInfo" ^
+  "-BD:\\ecoooo\\eco-zone-app-main\\android\\app\\.cxx\\RelWithDebInfo\\446p3g3y\\x86" ^
+  -GNinja ^
+  -Wno-dev ^
+  --no-warn-unused-cli

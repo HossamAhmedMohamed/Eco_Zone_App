@@ -18,6 +18,7 @@ class Messages extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Row(
+         
         mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -63,15 +64,17 @@ class Messages extends StatelessWidget {
                 bottom: 3,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
+                    textDirection: TextDirection.rtl,
                     message,
                     style: TextStyle(color: isUser ? Colors.white : Colors.black),
                   ),
                   const SizedBox(height: 10),
                   Text(
+                    textDirection: TextDirection.ltr,
                     date,
                     style: TextStyle(color: isUser ? Colors.white : Colors.black),
                   ),
