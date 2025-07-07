@@ -2,9 +2,9 @@
 class Assets {
   Assets._();
   
-  /// Assets for imagesBiologicalSystem
-  /// assets/images/biological_system.png
-  static const String imagesBiologicalSystem = "assets/images/biological_system.png";
+  /// Assets for imagesBiologicalsystem
+  /// assets/images/biologicalsystem.png
+  static const String imagesBiologicalsystem = "assets/images/biologicalsystem.png";
 
   /// Assets for imagesBot
   /// assets/images/bot.png
@@ -26,8 +26,8 @@ class Assets {
   /// assets/images/gpt.png
   static const String imagesGpt = "assets/images/gpt.png";
 
-  /// Assets for imagesQualityWater
-  /// assets/images/quality_water.png
-  static const String imagesQualityWater = "assets/images/quality_water.png";
+  /// Assets for imagesWater quality
+  /// assets/images/water quality.png
+  static const String imagesWaterquality = "assets/images/water quality.png";
 }
 

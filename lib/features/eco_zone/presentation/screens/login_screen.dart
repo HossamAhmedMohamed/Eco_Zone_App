@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     margin: EdgeInsets.symmetric(vertical: 20),
                     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.purple,
+                      color: Color(0xFF0D98BA),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                backgroundColor: Colors.purple,
+                                backgroundColor: Color(0xFF0D98BA),
                               ),
 
                               child: Text(
