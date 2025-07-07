@@ -82,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.purple,
+                            color: Color(0xFF0D98BA),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
@@ -215,7 +215,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      backgroundColor: Colors.purple,
+                                      backgroundColor: Color(0xFF0D98BA),
                                     ),
 
                                     child: Text(

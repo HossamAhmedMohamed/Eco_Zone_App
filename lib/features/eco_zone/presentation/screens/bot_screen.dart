@@ -234,7 +234,7 @@ class _BotScreenState extends State<BotScreen> {
         ],
         elevation: 0,
         scrolledUnderElevation: 0,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color(0xFF0D98BA),
       ),
       body: Column(
         children: [
@@ -251,7 +251,7 @@ class _BotScreenState extends State<BotScreen> {
                               'Welcome to Eco-Zone Bot',
                               textAlign: TextAlign.center,
                               style: AppStyle.styleBold35(context).copyWith(
-                                color: Colors.deepPurple,
+                                color: Color(0xFF0D98BA),
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
@@ -260,7 +260,7 @@ class _BotScreenState extends State<BotScreen> {
                           Text(
                             'Ask me anything?',
                             style: AppStyle.styleRegular25W(context).copyWith(
-                              color: Colors.deepPurple,
+                              color: Color(0xFF0D98BA),
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -290,7 +290,7 @@ class _BotScreenState extends State<BotScreen> {
                   height: 24,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    color: Colors.deepPurple,
+                    color: Color(0xFF0D98BA),
                   ),
                 ),
               ),
@@ -311,7 +311,7 @@ class _BotScreenState extends State<BotScreen> {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: const BorderSide(
-                          color: Colors.deepPurple,
+                          color:Color(0xFF0D98BA),
                           width: 2,
                         ),
                       ),
@@ -329,7 +329,7 @@ class _BotScreenState extends State<BotScreen> {
                 const SizedBox(width: 8),
                 Container(
                   decoration: const BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: Color(0xFF0D98BA),
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(

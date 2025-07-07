@@ -1,142 +1,145 @@
-import 'package:flutter/material.dart';
+ 
 
-class DevicePage extends StatefulWidget {
-  const DevicePage({super.key});
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+
+class DevicesPage extends StatefulWidget {
+  const DevicesPage({super.key});
 
   @override
-  State<DevicePage> createState() => _DevicePageState();
+  State<DevicesPage> createState() => _DevicesPageState();
 }
 
-class _DevicePageState extends State<DevicePage> {
-  bool isHeaterOn = false;
-  double heaterTemp = 45.0;
+class _DevicesPageState extends State<DevicesPage> {
+  BluetoothDevice? selectedDevice;
+  BluetoothConnection? connection;
+  bool isConnected = false;
 
-  bool isFanOn = false;
-  double fanSpeed = 1.0;
+  // ✅ الحالات لكل جهاز
+  final Map<String, bool> devicesStatus = {
+    'Heater': false,
+    'Pump': false,
+    'Feeder': false,
+    'Fan': false,
+    'Valve': false,
+    'Filter': false,
+  };
 
-  bool isFilterOn = false;
+  void connectToDevice() async {
+    final bondedDevices =
+        await FlutterBluetoothSerial.instance.getBondedDevices();
 
-  bool isFeederOn = false;
-  double foodAmount = 50.0;
-
-  bool isPumpOn = false;
-  double waterFlow = 1.0;
-
-  bool isValveOpen = false;
-
-  Widget buildDeviceTile(String title, IconData icon, bool status, VoidCallback toggle) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 5,
-      color: Colors.white,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.purple, Colors.pink, Colors.lightBlue],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: ListTile(
-          leading: Icon(icon, size: 30, color: Colors.lightBlue), // Change icon color to light blue
-          title: Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-          trailing: Switch(
-            value: status,
-            onChanged: (value) => toggle(),
-            activeColor: Colors.lightBlue, // Set the switch color to light blue
-          ),
-        ),
+    final device = await showDialog<BluetoothDevice>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text("Select Device"),
+        children: bondedDevices
+            .map((d) => SimpleDialogOption(
+                  child: Text(d.name ?? d.address),
+                  onPressed: () => Navigator.pop(context, d),
+                ))
+            .toList(),
       ),
     );
+
+    if (device != null) {
+      try {
+        connection = await BluetoothConnection.toAddress(device.address);
+        setState(() {
+          selectedDevice = device;
+          isConnected = true;
+        });
+        if (kDebugMode) {
+          print('Connected to ${device.name}');
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print('Cannot connect, exception occured');
+          print(e);
+        }
+      }
+    }
   }
 
-  Widget buildSliderTile(String title, IconData icon, double value, double min, double max, int divisions, ValueChanged<double> onChanged) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 5,
-      color: Colors.white,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.purple, Colors.pink, Colors.lightBlue],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(icon, size: 30, color: Colors.lightBlue), // Change icon color to light blue
-                  SizedBox(width: 10),
-                  Text(
-                    title,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
-                  ),
-                ],
-              ),
-              Slider(
-                value: value,
-                min: min,
-                max: max,
-                divisions: divisions,
-                label: value.toStringAsFixed(1),
-                onChanged: onChanged,
-                activeColor: Colors.lightBlue, // Change active slider color to light blue
-                // ignore: deprecated_member_use
-                inactiveColor: Colors.lightBlue.withOpacity(0.5), // Change inactive slider color
-              ),
-              Text(
-                value.toStringAsFixed(1), // Display value with the same color as the slider
-                style: TextStyle(color: Colors.lightBlue),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  void sendCommand(String command) {
+    if (connection != null && connection!.isConnected) {
+      connection!.output.add(Uint8List.fromList("$command\n".codeUnits));
+      if (kDebugMode) {
+        print("Sent: $command");
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Device Control",
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.lightBlue,
+        title: const Text('Devices Control'),
+        backgroundColor: const Color(0xFF0D98BA),
+        foregroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: ListView(
-          children: <Widget>[
-            buildDeviceTile("Heater", Icons.thermostat, isHeaterOn, () => setState(() => isHeaterOn = !isHeaterOn)),
-            if (isHeaterOn) buildSliderTile("Temperature", Icons.thermostat, heaterTemp, 0, 100, 10, (value) => setState(() => heaterTemp = value)),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ElevatedButton(
+              onPressed: connectToDevice,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF0D98BA),
+              ),
+              child: Text(isConnected ? "Connected ✅" : "Connect to Device"),
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              children: devicesStatus.entries.map((entry) {
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF0D98BA), Color(0xFFB2FFB2)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      entry.key,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    trailing: Switch(
+                      value: entry.value,
+                      onChanged: isConnected
+                          ? (bool newValue) {
+                              setState(() {
+                                devicesStatus[entry.key] = newValue;
+                              });
 
-            buildDeviceTile("Fan", Icons.air, isFanOn, () => setState(() => isFanOn = !isFanOn)),
-            if (isFanOn) buildSliderTile("Speed", Icons.speed, fanSpeed, 0, 3, 3, (value) => setState(() => fanSpeed = value)),
+                              // ✅ إرسال الأمر لـ ESP32
+                              sendCommand(
+                                  "${entry.key.toLowerCase()}_${newValue ? 'on' : 'off'}");
 
-            buildDeviceTile("Filter", Icons.filter_alt, isFilterOn, () => setState(() => isFilterOn = !isFilterOn)),
-
-            buildDeviceTile("Feeder", Icons.restaurant, isFeederOn, () => setState(() => isFeederOn = !isFeederOn)),
-            if (isFeederOn) buildSliderTile("Food Amount (g)", Icons.fastfood, foodAmount, 10, 100, 10, (value) => setState(() => foodAmount = value)),
-
-            buildDeviceTile("Pump", Icons.water, isPumpOn, () => setState(() => isPumpOn = !isPumpOn)),
-            if (isPumpOn) buildSliderTile("Water Flow (L/s)", Icons.waves, waterFlow, 0, 5, 5, (value) => setState(() => waterFlow = value)),
-
-            buildDeviceTile("Valve", Icons.sync_alt, isValveOpen, () => setState(() => isValveOpen = !isValveOpen)),
-          ],
-        ),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      '${entry.key} turned ${newValue ? 'ON' : 'OFF'}'),
+                                  duration: const Duration(seconds: 1),
+                                ),
+                              );
+                            }
+                          : null,
+                      activeColor: Colors.greenAccent,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
