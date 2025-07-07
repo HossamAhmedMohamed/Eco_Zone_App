@@ -5,11 +5,11 @@ import 'package:untitled/core/cache/cache_helper.dart';
 import 'package:untitled/features/eco_zone/data/data_source/remote_data_source.dart';
 import 'package:untitled/features/eco_zone/data/repo/repo.dart';
 import 'package:untitled/features/eco_zone/presentation/cubit/logics_cubit.dart';
+import 'package:untitled/features/eco_zone/presentation/screens/bilogical_system_page.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/bot_screen.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/dash_board.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/device_page.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/environment_sensor.dart';
-import 'package:untitled/features/eco_zone/presentation/screens/live_stream_screen.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/login_screen.dart';
 import 'package:untitled/features/eco_zone/presentation/screens/sign_up_screen.dart';
 
@@ -17,13 +17,26 @@ import 'package:untitled/features/eco_zone/presentation/screens/water_quality_pa
 import 'package:untitled/routing/app_router.dart';
 
 class RouterGenerator {
-
   static final String? isAuthenticated = CacheHelper().getData(key: 'userId');
   static GoRouter mainRouting = GoRouter(
-    initialLocation: isAuthenticated != null ? AppRouter.dashboard : AppRouter.login,
+    initialLocation:
+        isAuthenticated != null ? AppRouter.dashboard : AppRouter.login,
     // initialLocation: AppRouter.chat,
     errorBuilder: (context, state) {
       return const Scaffold(body: Center(child: Text('Error')));
+    },
+    redirect: (BuildContext context, GoRouterState state) {
+      final isLogin = state.matchedLocation == AppRouter.login;
+      final isSignup = state.matchedLocation == AppRouter.signup;
+      final isAuthenticated = CacheHelper().getData(key: 'userId') != null;
+
+      if (isAuthenticated && (isLogin || isSignup)) {
+        return AppRouter.dashboard;
+      }
+      if (!isAuthenticated && !isLogin && !isSignup) {
+        return AppRouter.login;
+      }
+      return null;
     },
     routes: [
       GoRoute(
@@ -55,25 +68,25 @@ class RouterGenerator {
       GoRoute(
         name: AppRouter.devices,
         path: AppRouter.devices,
-        builder: (context, state) => const DevicePage(),
+        builder: (context, state) => const DevicesPage(),
       ),
 
       GoRoute(
         name: AppRouter.waterQuality,
         path: AppRouter.waterQuality,
-        builder: (context, state) => const WaterQualitySensorsPage(),
+        builder: (context, state) => WaterQualityScreen(),
       ),
 
       GoRoute(
         name: AppRouter.environment,
         path: AppRouter.environment,
-        builder: (context, state) => const EnvironmentSensorsPage(),
+        builder: (context, state) => EnvironmentSensorsScreen(),
       ),
 
       GoRoute(
         name: AppRouter.biologicalSystem,
         path: AppRouter.biologicalSystem,
-        builder: (context, state) => const LiveStreamScreen(),
+        builder: (context, state) => const BiologicalSystemPage(),
       ),
 
       GoRoute(

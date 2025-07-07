@@ -13,6 +13,8 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
+
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -22,9 +24,9 @@ android {
     defaultConfig {
         applicationId "com.example.inventory_management_app"  // الـ Application ID الخاص بالتطبيق
         minSdkVersion 23  // الحد الأدنى لدعم الـ SDK
-        targetSdk = flutter.targetSdkVersion  // نسخة الـ SDK المستهدفة
-        versionCode flutter.versionCode  // نسخة التطبيق
-        versionName flutter.versionName  // اسم الإصدار
+        targetSdk = 33  // نسخة الـ SDK المستهدفة
+        versionCode 1  // نسخة التطبيق
+        versionName "1.0"  // اسم الإصدار
         signingConfig = signingConfigs.debug
         multiDexEnabled true  // تمكين الـ MultiDex
     }
@@ -43,6 +45,8 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10'  // تأكد من وجود النسخة الصحيحة من Kotlin
     implementation 'com.android.support:appcompat-v7:28.0.0'  // تبعيات دعم Android القديمة إذا كنت تحتاجها
     // أضف باقي التبعيات حسب حاجتك، مثل Firebase أو أي مكتبات أخرى.
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 }
 
 flutter {
