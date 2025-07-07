@@ -40,7 +40,7 @@ class Messages extends StatelessWidget {
               maxWidth: MediaQuery.of(context).size.width * 0.75,
             ),
             decoration: BoxDecoration(
-              color: isUser ? Colors.deepPurple : Colors.grey.shade200,
+              color: isUser ? Color(0xFF0D98BA) : Colors.grey.shade200,
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(18),
                 topRight: const Radius.circular(18),
